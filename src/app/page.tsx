@@ -2,6 +2,8 @@
 
 import axios from 'axios'
 import { useEffect, useState } from 'react'
+import { toast, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 export default function Home() {
     const [name, setName] = useState('')
@@ -42,14 +44,22 @@ export default function Home() {
             data: inputData
         })
         .then((response) => {
-            if (response.status == 201) {
-                response.data.data
+            toast.success('Item successfully added.', {
+                position: toast.POSITION.TOP_RIGHT
+            })
+        })
+        .catch((error) => {
+            if (error.response.status == 400) {
+                toast.error('Invalid data provided.', {
+                    position: toast.POSITION.TOP_RIGHT
+                })
             }
-            else if (response.status == 400) {
-                response.data.error
+            else {
+                toast.error('Internal server error', {
+                    position: toast.POSITION.TOP_RIGHT
+                })
             }
         })
-        .catch((error) => console.error(error))
 
         setName('')
         setImageUrl('')
@@ -64,6 +74,8 @@ export default function Home() {
                 <input onChange={ (e) => handleImageUrlChange(e) } className='p-4 m-4' type='url' placeholder='Image url' />
                 <input onChange={ (e) => handleItemUrlChange(e) } className='p-4 m-4' type='url' placeholder='Item url' required />
                 <button className='bg-blue-500 hover:enabled:bg-blue-700 text-white font-bold p-4 m-4 rounded w-40 disabled:cursor-not-allowed disabled:opacity-50' onClick={ (e) => addItem(e) } type='submit' disabled={ buttonDisabled }>Add</button>
+                
+                <ToastContainer />
             </form>
         </main>
     )
