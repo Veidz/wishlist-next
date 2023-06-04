@@ -41,7 +41,7 @@ export default function Home() {
 
         axios({
             method: 'post',
-            url: 'http://localhost:5050/products',
+            url: `http://localhost:${process.env.NODE_PORT}/products`,
             data: inputData
         })
         .then((response) => {
