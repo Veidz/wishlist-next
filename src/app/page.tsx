@@ -9,15 +9,15 @@ import './page.css'
 export default function Home() {
     const [name, setName] = useState('')
     const [imageUrl, setImageUrl] = useState('')
-    const [itemUrl, setItemUrl] = useState('')
+    const [productUrl, setProductUrl] = useState('')
 
     const [buttonDisabled, setButtonDisabled] = useState(true)
 
     useEffect(() => {
-        if (name && itemUrl) {
+        if (name && productUrl) {
             setButtonDisabled(false)
         }
-    }, [name, itemUrl])
+    }, [name, productUrl])
 
     const handleNameChange = (e: any) => {
         setName(e.target.value)
@@ -27,8 +27,8 @@ export default function Home() {
         setImageUrl(e.target.value)
     }
 
-    const handleItemUrlChange = (e: any) => {
-        setItemUrl(e.target.value)
+    const handleProductUrlChange = (e: any) => {
+        setProductUrl(e.target.value)
     }
 
     const addItem = (e: any) => {
@@ -36,7 +36,7 @@ export default function Home() {
         const inputData = {
             name: name,
             imageUrl: imageUrl,
-            itemUrl: itemUrl
+            productUrl: productUrl
         }
 
         axios({
@@ -64,7 +64,7 @@ export default function Home() {
 
         setName('')
         setImageUrl('')
-        setItemUrl('')
+        setProductUrl('')
         setButtonDisabled(true)
     }
 
@@ -72,9 +72,9 @@ export default function Home() {
         <main className='flex min-h-screen flex-col items-center p-24'>
             <h1 className='text-8xl font-bold mb-10 tracking-wide'>WishList</h1>
             <form className='form-container'>
-                <input onChange={ (e) => handleNameChange(e) } className='p-4 m-4 outline-blue-500' type='text' placeholder='Item name' required value={ name } />
+                <input onChange={ (e) => handleNameChange(e) } className='p-4 m-4 outline-blue-500' type='text' placeholder='Product name' required value={ name } />
                 <input onChange={ (e) => handleImageUrlChange(e) } className='p-4 m-4 outline-blue-500' type='url' placeholder='Image url' value={ imageUrl } />
-                <input onChange={ (e) => handleItemUrlChange(e) } className='p-4 m-4 outline-blue-500' type='url' placeholder='Item url' required value={ itemUrl } />
+                <input onChange={ (e) => handleProductUrlChange(e) } className='p-4 m-4 outline-blue-500' type='url' placeholder='Product url' required value={ productUrl } />
                 <button className='bg-blue-500 hover:enabled:bg-blue-700 text-white font-bold p-4 m-4 rounded w-40 disabled:cursor-not-allowed disabled:opacity-50' onClick={ (e) => addItem(e) } type='submit' disabled={ buttonDisabled }>Add</button>
                 
                 <ToastContainer />
