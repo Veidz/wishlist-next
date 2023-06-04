@@ -4,6 +4,7 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import './page.css'
 
 export default function Home() {
     const [name, setName] = useState('')
@@ -70,7 +71,7 @@ export default function Home() {
     return (
         <main className='flex min-h-screen flex-col items-center p-24'>
             <h1 className='text-8xl font-bold mb-10 tracking-wide'>WishList</h1>
-            <form>
+            <form className='form-container'>
                 <input onChange={ (e) => handleNameChange(e) } className='p-4 m-4 outline-blue-500' type='text' placeholder='Item name' required value={ name } />
                 <input onChange={ (e) => handleImageUrlChange(e) } className='p-4 m-4 outline-blue-500' type='url' placeholder='Image url' value={ imageUrl } />
                 <input onChange={ (e) => handleItemUrlChange(e) } className='p-4 m-4 outline-blue-500' type='url' placeholder='Item url' required value={ itemUrl } />
