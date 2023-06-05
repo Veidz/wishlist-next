@@ -6,7 +6,6 @@ import { useEffect, useState } from 'react'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import './page.css'
-import defaultImage from './images/default.png'
 
 export default function Home() {
     const [products, setProducts] = useState([])
@@ -38,9 +37,9 @@ export default function Home() {
     const addProduct = (e: any) => {
         e.preventDefault()
         const inputData = {
-            name: name,
-            imageUrl: imageUrl,
-            productUrl: productUrl
+            Name: name,
+            ImageUrl: imageUrl,
+            ProductUrl: productUrl
         }
 
         axios({
@@ -54,6 +53,7 @@ export default function Home() {
             })
         })
         .catch((error) => {
+            console.log(error)
             if (error.response.status == 400) {
                 toast.error('Invalid data provided.', {
                     position: toast.POSITION.TOP_RIGHT
@@ -104,7 +104,7 @@ export default function Home() {
                     products.map((product: any) => {
                         return (
                             <div key={ product.name } className="flex-col mt-10 p-6 bg-white border border-gray-200 rounded-lg flex items-center justify-between">
-                                <img src={ product.imageUrl ? product.imageUrl : defaultImage } alt={ `${product.name} photo` } width={ 64 } height={ 64 } />
+                                <img src={ product.imageUrl ? product.imageUrl : 'https://www.tiffincurry.ca/wp-content/uploads/2021/02/default-product.png' } alt={ `${product.name} photo` } width={ 64 } height={ 64 } />
                                 
                                 <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
                                     { product.name }
