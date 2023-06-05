@@ -6,7 +6,6 @@ import { useEffect, useState } from 'react'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import './page.css'
-import Image from 'next/image'
 
 export default function Home() {
     const [products, setProducts] = useState([])
@@ -43,28 +42,28 @@ export default function Home() {
             productUrl: productUrl
         }
 
-        // axios({
-        //     method: 'post',
-        //     url: `http://localhost:${process.env.DB_NODE_PORT}/products`,
-        //     data: inputData
-        // })
-        // .then((response) => {
-        //     toast.success('Item successfully added.', {
-        //         position: toast.POSITION.TOP_RIGHT
-        //     })
-        // })
-        // .catch((error) => {
-        //     if (error.response.status == 400) {
-        //         toast.error('Invalid data provided.', {
-        //             position: toast.POSITION.TOP_RIGHT
-        //         })
-        //     }
-        //     else {
-        //         toast.error('Internal server error', {
-        //             position: toast.POSITION.TOP_RIGHT
-        //         })
-        //     }
-        // })
+        axios({
+            method: 'post',
+            url: `http://localhost:${process.env.DB_NODE_PORT}/products`,
+            data: inputData
+        })
+        .then((response) => {
+            toast.success('Item successfully added.', {
+                position: toast.POSITION.TOP_RIGHT
+            })
+        })
+        .catch((error) => {
+            if (error.response.status == 400) {
+                toast.error('Invalid data provided.', {
+                    position: toast.POSITION.TOP_RIGHT
+                })
+            }
+            else {
+                toast.error('Internal server error', {
+                    position: toast.POSITION.TOP_RIGHT
+                })
+            }
+        })
 
         setName('')
         setImageUrl('')
