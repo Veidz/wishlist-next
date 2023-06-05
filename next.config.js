@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     env: {
-        NODE_PORT: process.env.NODE_PORT
+        DB_NODE_PORT: process.env.DB_NODE_PORT
     }
 }
 
