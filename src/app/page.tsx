@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import './page.css'
+import defaultImage from './images/default.png'
 
 export default function Home() {
     const [products, setProducts] = useState([])
@@ -103,7 +104,7 @@ export default function Home() {
                     products.map((product: any) => {
                         return (
                             <div key={ product.name } className="flex-col mt-10 p-6 bg-white border border-gray-200 rounded-lg flex items-center justify-between">
-                                <img src={ product.imageUrl } alt={ `${product.name} photo` } width={ 64 } height={ 64 } />
+                                <img src={ product.imageUrl ? product.imageUrl : defaultImage } alt={ `${product.name} photo` } width={ 64 } height={ 64 } />
                                 
                                 <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
                                     { product.name }
