@@ -7,6 +7,8 @@ import 'react-toastify/dist/ReactToastify.css'
 import './page.css'
 
 export default function Home() {
+    const [products, setProducts] = useState()
+
     const [name, setName] = useState('')
     const [imageUrl, setImageUrl] = useState('')
     const [productUrl, setProductUrl] = useState('')
@@ -31,7 +33,7 @@ export default function Home() {
         setProductUrl(e.target.value)
     }
 
-    const addItem = (e: any) => {
+    const addProduct = (e: any) => {
         e.preventDefault()
         const inputData = {
             name: name,
@@ -66,6 +68,21 @@ export default function Home() {
         setImageUrl('')
         setProductUrl('')
         setButtonDisabled(true)
+
+        getProducts()
+    }
+
+    const getProducts = () => {
+        axios({
+            method: 'get',
+            url: `http://localhost:${process.env.DB_ASPNET_PORT}/products`
+        })
+        .then((response) => {
+            setProducts(response.data.data)
+        })
+        .catch((error) => {
+            console.error(error)
+        })
     }
 
     return (
@@ -75,7 +92,7 @@ export default function Home() {
                 <input onChange={ (e) => handleNameChange(e) } className='p-4 m-4 outline-blue-500' type='text' placeholder='Product name' required value={ name } />
                 <input onChange={ (e) => handleImageUrlChange(e) } className='p-4 m-4 outline-blue-500' type='url' placeholder='Image url' value={ imageUrl } />
                 <input onChange={ (e) => handleProductUrlChange(e) } className='p-4 m-4 outline-blue-500' type='url' placeholder='Product url' required value={ productUrl } />
-                <button className='bg-blue-500 hover:enabled:bg-blue-700 text-white font-bold p-4 m-4 rounded w-40 disabled:cursor-not-allowed disabled:opacity-50' onClick={ (e) => addItem(e) } type='submit' disabled={ buttonDisabled }>Add</button>
+                <button className='bg-blue-500 hover:enabled:bg-blue-700 text-white font-bold p-4 m-4 rounded w-40 disabled:cursor-not-allowed disabled:opacity-50' onClick={ (e) => addProduct(e) } type='submit' disabled={ buttonDisabled }>Add</button>
                 
                 <ToastContainer />
             </form>
